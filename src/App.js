@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Typist from 'react-typist';
 import './App.css';
 import Configs from './configurations.json';
-import { FaHeart, FaBeer } from 'react-icons/fa';
+import { FaHeart, FaBeer, FaRegEnvelope } from 'react-icons/fa';
 
 class App extends Component {
   constructor(props) {
@@ -151,7 +151,7 @@ class App extends Component {
             </div>
             <br/>
             <div className="footer">
-            Made with <FaHeart /> and <FaBeer/><br/>
+              <span>Made with <FaHeart /> and <FaBeer/> </span>
             </div>
           </main>
         </div>

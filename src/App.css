@@ -40,6 +40,9 @@
 
 .footer {
   font-size: 15px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 @media (min-width: 576px) {

@@ -18,6 +18,10 @@
     {
       "image": "fa-linkedin",
       "url": "https://www.linkedin.com/in/julioespadas/"
+    },
+    {
+      "image": "fas fa-envelope",
+      "url": "mailto:contact@julioespadas.com?subject=Hello"
     }
   ]
 }
