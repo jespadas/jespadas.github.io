@@ -1,7 +1,7 @@
 {
   "name": "beautiful-vcard",
   "version": "0.1.0",
-  "homepage": "https://jespadas.github.io/me",
+  "homepage": "jespadas.github.io",
   "private": true,
   "dependencies": {
     "i18next": "^17.0.8",
