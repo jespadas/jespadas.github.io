@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Typist from 'react-typist';
 import './App.css';
 import Configs from './configurations.json';
-import { FaHeart, FaBeer, FaRegEnvelope } from 'react-icons/fa';
+import { FaHeart, FaBeer } from 'react-icons/fa';
 
 class App extends Component {
   constructor(props) {
@@ -79,24 +79,6 @@ class App extends Component {
         background:
           'linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB)',
         backgroundSize: '400% 400%'
-      };
-    }
-  };
-
-  prepareBackgroundImageStyle = () => {
-    if (Configs.backgroundImageUrl) {
-      return {
-        background:
-          'url("' +
-          Configs.backgroundImageUrl +
-          '") no-repeat center center fixed',
-        backgroundSize: 'cover'
-      };
-    } else {
-      return {
-        background:
-          'url("/images/sample-background.jpg") no-repeat center center fixed',
-        backgroundSize: 'cover'
       };
     }
   };
