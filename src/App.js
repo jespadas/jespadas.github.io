@@ -133,6 +133,8 @@ class App extends Component {
             </div>
             <br/>
             <div className="footer">
+              <a  href="https://jespadas.github.io/covid-19/" target="_blank" rel="noopener noreferrer"><span class="coronavirus"> Project to follow COVID19 stats </span></a> <br/>
+              
               <span>Made with <FaHeart /> and <FaBeer/> </span>
             </div>
           </main>

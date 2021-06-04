@@ -26,6 +26,16 @@
   margin-left: 0.5em;
   margin-right: 0.5em;
 }
+ // TODO eliminar luego
+ a, a:visited, a:hover, a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+.coronavirus {
+  color: inherit;
+  text-decoration: none;
+}
 
 .change-mode {
   position: absolute;
