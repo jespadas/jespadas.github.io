@@ -15,6 +15,9 @@ class App extends Component {
 			devIntro: Configs.devIntro,
 			devDesc: Configs.devDesc,
 			devDesc2: Configs.devDesc2,
+			devDesc3: Configs.devDesc3,
+			devDesc4: Configs.devDesc4,
+			devDesc5: Configs.devDesc5,
 			backgroundMode: 'default',
 			backgroundIndex: 0,
 			bgStyle: {},
@@ -103,6 +106,9 @@ class App extends Component {
 			devIntro,
 			devDesc,
 			devDesc2,
+			devDesc3,
+			devDesc4,
+			devDesc5,
 			icons,
 		} = this.state;
 
@@ -115,7 +121,7 @@ class App extends Component {
             <img src={Me} alt='profile' style={{width: "8rem", borderRadius: "50%"}}/>
 						<div className='tagline'>
 							<ReactTyped
-								strings={[devDesc, devDesc2]}
+								strings={[devDesc, devDesc2, devDesc3, devDesc4, devDesc5]}
 								typeSpeed={40}
 								backSpeed={40}
 								loop
