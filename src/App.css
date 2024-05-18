@@ -42,6 +42,10 @@
   right: 25px;
 }
 
+.portfolio-link {
+  margin: 1rem auto 1rem auto;
+}
+
 .icons-social i {
   padding: 10px;
   font-size: 2em;

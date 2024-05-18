@@ -118,16 +118,29 @@ class App extends Component {
 				<div className={backgroundMode}>
 					<main className='App-main'>
 						<h1 className='intro'>{devIntro}</h1>
-            <img src={Me} alt='profile' style={{width: "8rem", borderRadius: "50%"}}/>
+						<img
+							src={Me}
+							alt='profile'
+							style={{ width: '8rem', borderRadius: '50%' }}
+						/>
 						<div className='tagline'>
 							<ReactTyped
 								strings={[devDesc, devDesc2, devDesc3, devDesc4, devDesc5]}
 								typeSpeed={40}
 								backSpeed={40}
 								loop
-                smartBackspace
+								smartBackspace
+							></ReactTyped>
+						</div>
+						<div className='portfolio-link'>
+							<a
+								class='btn'
+								href='https://v2.julioespadas.com'
+								rel='noreferrer'
+								target='_blank'
 							>
-							</ReactTyped>
+								{'> Portfolio v2 <'}
+							</a>
 						</div>
 						<div className='icons-social'>
 							{icons.map((icon) => (
