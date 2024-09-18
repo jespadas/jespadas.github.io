@@ -132,16 +132,6 @@ class App extends Component {
 								smartBackspace
 							></ReactTyped>
 						</div>
-						<div className='portfolio-link'>
-							<a
-								class='btn'
-								href='https://v2.julioespadas.com'
-								rel='noreferrer'
-								target='_blank'
-							>
-								{'> Portfolio v2 <'}
-							</a>
-						</div>
 						<div className='icons-social'>
 							{icons.map((icon) => (
 								<a

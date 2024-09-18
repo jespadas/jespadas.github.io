@@ -1,129 +1,131 @@
 .App {
-  text-align: center;
+	text-align: center;
 }
 
 .App-main {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: calc(10px + 2vmin);
 }
 
 .tagline {
-  font-size: 1.5rem;
-  margin: 1.5rem 0;
-  font-weight: 100;
-  margin-left: 1.5em;
-  margin-right: 1.5em;
+	font-size: 1.5rem;
+	margin: 1.5rem 0;
+	font-weight: 100;
+	margin-left: 1.5em;
+	margin-right: 1.5em;
 }
 
 .intro {
-  font-family: 'Reem Kufi', sans-serif;
-  font-size: 2.75em;
-  font-weight: 600;
-  margin-left: 0.5em;
-  margin-right: 0.5em;
+	font-family: 'Reem Kufi', sans-serif;
+	font-size: 1.75em;
+	font-weight: 600;
+	margin-left: 0.5em;
+	margin-right: 0.5em;
 }
- a, a:visited, a:hover, a:active {
-  color: inherit;
-  text-decoration: none;
+a,
+a:visited,
+a:hover,
+a:active {
+	color: inherit;
+	text-decoration: none;
 }
 
 .coronavirus {
-  color: inherit;
-  text-decoration: none;
+	color: inherit;
+	text-decoration: none;
 }
 
 .change-mode {
-  position: absolute;
-  top: 25px;
-  right: 25px;
+	position: absolute;
+	top: 25px;
+	right: 25px;
 }
 
 .portfolio-link {
-  margin: 1rem auto 1rem auto;
+	margin: 1rem auto 1rem auto;
 }
 
 .icons-social i {
-  padding: 10px;
-  font-size: 2em;
+	padding: 10px;
 }
 
 .footer {
-  font-size: 15px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+	font-size: 15px;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
 }
 
 @media (min-width: 576px) {
-  html {
-    font-size: 14px;
-  }
+	html {
+		font-size: 14px;
+	}
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+	html {
+		font-size: 16px;
+	}
 }
 
 @media (min-width: 992px) {
-  html {
-    font-size: 18px;
-  }
+	html {
+		font-size: 18px;
+	}
 }
 
 @media (min-width: 1200px) {
-  html {
-    font-size: 20px;
-  }
+	html {
+		font-size: 20px;
+	}
 }
 
 /* Daylight CSS */
 
 .daylight .App-main {
-  background-color: #282c34;
-  color: white;
+	background-color: #282c34;
+	color: white;
 }
 
 .daylight .change-mode:before {
-  color: yellow;
-  font-family: 'Font Awesome 5 Free';
-  font-weight: 400;
-  content: '\f185';
+	color: yellow;
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 400;
+	content: '\f185';
 }
 
 .daylight .icons-social a {
-  color: #fafafa;
+	color: #fafafa;
 }
 
 .daylight .icons-social a svg path {
-  fill: #fafafa;
+	fill: #fafafa;
 }
 
 /* Nightlight CSS */
 
 .nightlight .App-main {
-  background-color: #fafafa;
-  color: #000;
+	background-color: #fafafa;
+	color: #000;
 }
 
 .nightlight .change-mode:before {
-  color: black;
-  font-family: 'Font Awesome 5 Free';
-  font-weight: 400;
-  content: '\f186';
+	color: black;
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 400;
+	content: '\f186';
 }
 
 .nightlight .icons-social a {
-  color: #000;
+	color: #000;
 }
 
 .nightlight .icons-social a svg path {
-  fill: #000;
+	fill: #000;
 }
 
 /* Custom CSS Start From Here */
@@ -131,115 +133,115 @@
 /* day CSS */
 
 .day .App-main {
-  background-color: #282c34;
-  color: white;
+	background-color: #282c34;
+	color: white;
 }
 
 .day .icons-social a {
-  color: #fafafa;
+	color: #fafafa;
 }
 
 .day .icons-social a svg path {
-  fill: #fafafa;
+	fill: #fafafa;
 }
 
 /* night CSS */
 
 .night .App-main {
-  background-color: #fafafa;
-  color: #000;
+	background-color: #fafafa;
+	color: #000;
 }
 
 .night .icons-social a {
-  color: #000;
+	color: #000;
 }
 
 .night .icons-social a svg path {
-  fill: #000;
+	fill: #000;
 }
 
 /* Gradient background */
 
 .gradient {
-  width: 100wh;
-  height: 100vh;
-  color: #fff;
-  -webkit-animation: Gradient 15s ease infinite;
-  -moz-animation: Gradient 15s ease infinite;
-  animation: Gradient 15s ease infinite;
+	width: 100wh;
+	height: 100vh;
+	color: #fff;
+	-webkit-animation: Gradient 15s ease infinite;
+	-moz-animation: Gradient 15s ease infinite;
+	animation: Gradient 15s ease infinite;
 }
 
 .gradient .App-main {
-  color: #fff;
+	color: #fff;
 }
 
 .gradient .icons-social a {
-  color: #fff;
+	color: #fff;
 }
 
 .gradient .icons-social a svg path {
-  fill: #fff;
+	fill: #fff;
 }
 
 @-webkit-keyframes Gradient {
-  0% {
-    background-position: 0% 50%;
-  }
+	0% {
+		background-position: 0% 50%;
+	}
 
-  50% {
-    background-position: 100% 50%;
-  }
+	50% {
+		background-position: 100% 50%;
+	}
 
-  100% {
-    background-position: 0% 50%;
-  }
+	100% {
+		background-position: 0% 50%;
+	}
 }
 
 @-moz-keyframes Gradient {
-  0% {
-    background-position: 0% 50%;
-  }
+	0% {
+		background-position: 0% 50%;
+	}
 
-  50% {
-    background-position: 100% 50%;
-  }
+	50% {
+		background-position: 100% 50%;
+	}
 
-  100% {
-    background-position: 0% 50%;
-  }
+	100% {
+		background-position: 0% 50%;
+	}
 }
 
 @keyframes Gradient {
-  0% {
-    background-position: 0% 50%;
-  }
+	0% {
+		background-position: 0% 50%;
+	}
 
-  50% {
-    background-position: 100% 50%;
-  }
+	50% {
+		background-position: 100% 50%;
+	}
 
-  100% {
-    background-position: 0% 50%;
-  }
+	100% {
+		background-position: 0% 50%;
+	}
 }
 
 /* Full Page Background Image CSS */
 
 .full-bg-image {
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 }
 
 .full-bg-image .App-main {
-  color: #fff;
+	color: #fff;
 }
 
 .full-bg-image .icons-social a {
-  color: #fff;
+	color: #fff;
 }
 
 .full-bg-image .icons-social a svg path {
-  fill: #fff;
+	fill: #fff;
 }
