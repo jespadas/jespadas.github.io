@@ -2,11 +2,10 @@ export const professionalExperiences = [
 	{
 		company: 'Sogeti',
 		role: 'Desarrollador Full Stack / Tutor de alternantes',
-		period: 'Oct. 2021 - Actualidad',
+		period: '2021 - Actualidad',
 		missions: [
 			{
 				title: 'Tutor de alternantes',
-				period: 'Mar. 2025 - Actualidad',
 				context:
 					'Acompañamiento técnico y seguimiento diario de estudiantes en alternancia dentro del equipo.',
 				highlights: [
@@ -18,7 +17,6 @@ export const professionalExperiences = [
 			},
 			{
 				title: 'CEGID · Aplicación de punto de venta MFE',
-				period: 'Jun. 2024 - Actualidad',
 				context:
 					'Modernización de interfaces de una aplicación de punto de venta multi-dispositivo basada en micro frontends.',
 				highlights: [
@@ -41,7 +39,6 @@ export const professionalExperiences = [
 			},
 			{
 				title: 'COVEA · Herramienta de ayuda a la venta',
-				period: 'Oct. 2023 - Jun. 2024',
 				context:
 					'Aplicación web para prospección, venta y facturación de productos mutualistas.',
 				highlights: [
@@ -60,7 +57,6 @@ export const professionalExperiences = [
 			},
 			{
 				title: 'GTSI · Tests de suelo Airbus',
-				period: 'Jun. 2023 - Oct. 2023',
 				context:
 					'Aplicación para creación, modificación y ejecución de tests de suelo en líneas FAL Airbus.',
 				highlights: [
@@ -72,7 +68,6 @@ export const professionalExperiences = [
 			},
 			{
 				title: 'PIY · Configuración y venta de aviones Airbus',
-				period: 'Oct. 2021 - Jun. 2023',
 				context:
 					'Application web para configuración, facturación y modificación de aviones dentro de un proceso de venta.',
 				highlights: [
@@ -94,7 +89,7 @@ export const professionalExperiences = [
 	{
 		company: 'Freelance',
 		role: 'Desarrollador Full Stack',
-		period: 'Ene. 2020 - Oct. 2021',
+		period: '2020 - 2021',
 		location: 'Toulouse, Francia · Remoto',
 		summary:
 			'Diseño, desarrollo y mantenimiento de aplicaciones web para distintos clientes, cubriendo análisis, frontend, backend, pruebas, despliegue y soporte.',
@@ -107,7 +102,7 @@ export const professionalExperiences = [
 	{
 		company: 'WINSTATE',
 		role: 'Desarrollador de aplicaciones web',
-		period: 'Abr. 2019 - Jul. 2019',
+		period: '2019',
 		location: 'Toulouse, Francia',
 		summary:
 			'Desarrollo completo de una aplicación web, desde el análisis funcional hasta el despliegue y la documentación de usuario.',
