@@ -19,6 +19,67 @@ const EMPTY_FORM = {
 const BLOG_IMAGES_BUCKET = 'blog-images';
 const IMAGE_MAX_SIZE_BYTES = 5 * 1024 * 1024;
 const IMAGE_MIME_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+const LOGIN_RATE_LIMIT_KEY = 'admin-login-rate-limit';
+const LOGIN_MAX_FAILED_ATTEMPTS = 5;
+const LOGIN_LOCK_DURATION_MS = 15 * 60 * 1000;
+
+function readLoginRateLimit() {
+	try {
+		const rawState = window.localStorage.getItem(LOGIN_RATE_LIMIT_KEY);
+		const state = rawState ? JSON.parse(rawState) : null;
+
+		if (!state || typeof state !== 'object') {
+			return { attempts: 0, lockedUntil: 0 };
+		}
+
+		const lockedUntil = Number(state.lockedUntil) || 0;
+
+		if (lockedUntil && lockedUntil <= Date.now()) {
+			window.localStorage.removeItem(LOGIN_RATE_LIMIT_KEY);
+			return { attempts: 0, lockedUntil: 0 };
+		}
+
+		return {
+			attempts: Number(state.attempts) || 0,
+			lockedUntil,
+		};
+	} catch {
+		return { attempts: 0, lockedUntil: 0 };
+	}
+}
+
+function saveLoginRateLimit(state) {
+	try {
+		window.localStorage.setItem(LOGIN_RATE_LIMIT_KEY, JSON.stringify(state));
+	} catch {
+		// Supabase rate limits still protect the endpoint if local storage is unavailable.
+	}
+}
+
+function clearLoginRateLimit() {
+	try {
+		window.localStorage.removeItem(LOGIN_RATE_LIMIT_KEY);
+	} catch {
+		// Ignore storage errors; this only controls local UI friction.
+	}
+}
+
+function recordFailedLoginAttempt() {
+	const state = readLoginRateLimit();
+	const attempts = state.attempts + 1;
+	const lockedUntil =
+		attempts >= LOGIN_MAX_FAILED_ATTEMPTS ? Date.now() + LOGIN_LOCK_DURATION_MS : 0;
+	const nextState = { attempts, lockedUntil };
+	saveLoginRateLimit(nextState);
+	return nextState;
+}
+
+function getLoginLockMessage(lockedUntil) {
+	const remainingSeconds = Math.max(1, Math.ceil((lockedUntil - Date.now()) / 1000));
+	const remainingMinutes = Math.ceil(remainingSeconds / 60);
+
+	return `Demasiados intentos fallidos. Intenta de nuevo en ${remainingMinutes} min.`;
+}
 
 function getPublicationValue(status, publishedAt) {
 	if (status !== 'published') {
@@ -88,25 +149,67 @@ function AdminLogin({ onLogin }) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [isSubmitting, setIsSubmitting] = useState(false);
-	const [error, setError] = useState('');
+	const [lockedUntil, setLockedUntil] = useState(() => readLoginRateLimit().lockedUntil);
+	const [error, setError] = useState(() =>
+		lockedUntil > Date.now() ? getLoginLockMessage(lockedUntil) : ''
+	);
+	const isLocked = lockedUntil > Date.now();
+
+	useEffect(() => {
+		if (!isLocked) {
+			return undefined;
+		}
+
+		const intervalId = window.setInterval(() => {
+			const rateLimit = readLoginRateLimit();
+			setLockedUntil(rateLimit.lockedUntil);
+
+			if (rateLimit.lockedUntil > Date.now()) {
+				setError(getLoginLockMessage(rateLimit.lockedUntil));
+			} else {
+				setError('');
+			}
+		}, 1000);
+
+		return () => window.clearInterval(intervalId);
+	}, [isLocked]);
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+
+		const rateLimit = readLoginRateLimit();
+
+		if (rateLimit.lockedUntil > Date.now()) {
+			setLockedUntil(rateLimit.lockedUntil);
+			setError(getLoginLockMessage(rateLimit.lockedUntil));
+			return;
+		}
+
 		setIsSubmitting(true);
 		setError('');
 
 		const { error: loginError } = await supabase.auth.signInWithPassword({
-			email,
+			email: email.trim(),
 			password,
 		});
 
 		setIsSubmitting(false);
 
 		if (loginError) {
-			setError(loginError.message);
+			const nextRateLimit = recordFailedLoginAttempt();
+
+			if (nextRateLimit.lockedUntil) {
+				setLockedUntil(nextRateLimit.lockedUntil);
+				setError(getLoginLockMessage(nextRateLimit.lockedUntil));
+				return;
+			}
+
+			setError('No se pudo iniciar sesión. Revisa tus credenciales e inténtalo de nuevo.');
 			return;
 		}
 
+		clearLoginRateLimit();
+		setLockedUntil(0);
 		onLogin();
 	};
 
@@ -136,8 +239,8 @@ function AdminLogin({ onLogin }) {
 
 			{error ? <p className='admin-message admin-message--error'>{error}</p> : null}
 
-			<button className='admin-button' type='submit' disabled={isSubmitting}>
-				{isSubmitting ? 'Entrando...' : 'Entrar al CMS'}
+			<button className='admin-button' type='submit' disabled={isSubmitting || isLocked}>
+				{isSubmitting ? 'Entrando...' : isLocked ? 'Acceso pausado' : 'Entrar al CMS'}
 			</button>
 		</form>
 	);
