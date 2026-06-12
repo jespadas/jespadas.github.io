@@ -4,13 +4,13 @@ import { SocialLinks } from '../components/SocialLinks';
 import { TypedTagline } from '../components/TypedTagline';
 import { profileConfig } from '../config/profile';
 
-export function HomePage() {
+export function HomePage({ t }) {
   return (
     <main className="App-main">
-      <ProfileHeader intro={profileConfig.intro} />
-      <TypedTagline descriptions={profileConfig.descriptions} />
+      <ProfileHeader intro={t.intro} />
+      <TypedTagline descriptions={t.descriptions || profileConfig.descriptions} />
       <SocialLinks links={profileConfig.socialLinks} />
-      <SiteFooter />
+      <SiteFooter t={t} />
     </main>
   );
 }

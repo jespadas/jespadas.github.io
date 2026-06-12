@@ -1,5 +1,6 @@
 const FALLBACK_BASE_URL = 'https://jespadas.github.io';
 const SAFE_URL_PROTOCOLS = new Set(['http:', 'https:', 'mailto:']);
+const SAFE_IMAGE_PROTOCOLS = new Set(['https:']);
 const SAFE_ICON_TOKEN = /^(fa[bsr]?|fas|fab|far|fa-[a-z0-9-]+)$/i;
 
 export function getSafeUrl(value) {
@@ -18,6 +19,36 @@ export function getSafeUrl(value) {
   } catch {
     return null;
   }
+}
+
+export function getSafeImageUrl(value) {
+  if (typeof value !== 'string' || value.trim() === '') {
+    return null;
+  }
+
+  try {
+    const url = new URL(value.trim());
+
+    if (!SAFE_IMAGE_PROTOCOLS.has(url.protocol)) {
+      return null;
+    }
+
+    return url.href;
+  } catch {
+    return null;
+  }
+}
+
+export function getSafeMarkdownUrl(value, attributeName) {
+  if (attributeName === 'src') {
+    return getSafeImageUrl(value) || '';
+  }
+
+  return getSafeUrl(value) || '';
+}
+
+export function escapeMarkdownText(value) {
+  return String(value || '').replace(/([\\[\]()`*_{}<>])/g, '\\$1');
 }
 
 export function getSafeIconClass(value) {

@@ -1,4 +1,4 @@
-import { professionalExperiences } from '../data/experiences';
+import { experiencesByLanguage } from '../data/experiencesByLanguage';
 
 const SKILL_TONES = {
 	angular: 'angular',
@@ -45,7 +45,7 @@ function getSkillTone(skill) {
 	return SKILL_TONES[normalizeSkill(skill)] || 'default';
 }
 
-function SkillChips({ skills, label = 'Competencias' }) {
+function SkillChips({ skills, label }) {
 	if (!skills || skills.length === 0) {
 		return null;
 	}
@@ -64,19 +64,18 @@ function SkillChips({ skills, label = 'Competencias' }) {
 	);
 }
 
-export function ExperiencePage() {
+export function ExperiencePage({ language, t }) {
+	const professionalExperiences = experiencesByLanguage[language] || experiencesByLanguage.es;
+
 	return (
 		<main className='experience-page'>
 			<section className='experience-hero' aria-labelledby='experience-title'>
-				<p className='experience-kicker'>Trayectoria</p>
-				<h1 id='experience-title'>Experiencia profesional</h1>
-				<p>
-					Una visión resumida de mi trabajo como desarrollador full stack,
-					combinando producto, calidad técnica, colaboración y acompañamiento.
-				</p>
+				<p className='experience-kicker'>{t.kicker}</p>
+				<h1 id='experience-title'>{t.title}</h1>
+				<p>{t.heroDescription}</p>
 			</section>
 
-			<section className='experience-list' aria-label='Experiencias'>
+			<section className='experience-list' aria-label={t.listLabel}>
 				{professionalExperiences.map((experience) => (
 					<article
 						className='experience-card'
@@ -102,7 +101,7 @@ export function ExperiencePage() {
 							</ul>
 						) : null}
 
-						<SkillChips skills={experience.stack} />
+						<SkillChips label={t.skillsLabel} skills={experience.stack} />
 
 						{experience.missions ? (
 							<div className='experience-missions'>
@@ -124,8 +123,8 @@ export function ExperiencePage() {
 										</ul>
 
 										<SkillChips
+											label={`${t.skillsLabel} ${mission.title}`}
 											skills={mission.stack}
-											label={`Competencias ${mission.title}`}
 										/>
 									</section>
 								))}

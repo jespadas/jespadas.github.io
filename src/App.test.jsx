@@ -1,16 +1,22 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import App from './App';
-import { profileConfig } from './config/profile';
-import { getSafeIconClass, getSafeUrl } from './utils/security';
+import { translations } from './i18n/translations';
+import { getSafeIconClass, getSafeImageUrl, getSafeMarkdownUrl, getSafeUrl } from './utils/security';
 
 describe('App', () => {
+  beforeEach(() => {
+    window.history.replaceState({}, '', '/');
+    window.localStorage.clear();
+    vi.stubGlobal('scrollTo', vi.fn());
+  });
+
   it('renders the configured introduction', () => {
     render(<App />);
 
     expect(
-      screen.getByRole('heading', { name: profileConfig.intro })
+      screen.getByRole('heading', { name: translations.es.home.intro })
     ).toBeTruthy();
     expect(screen.queryByRole('button', { name: 'Inicio' })).toBeNull();
   });
@@ -40,12 +46,12 @@ describe('App', () => {
     expect(screen.getByRole('button', { name: 'Blog' })).toBeTruthy();
   });
 
-  it('navigates to the blog page', () => {
+  it('navigates to the blog page', async () => {
     render(<App />);
 
     fireEvent.click(screen.getByRole('button', { name: 'Blog' }));
 
-    expect(screen.getByRole('heading', { name: 'Blog' })).toBeTruthy();
+    expect(await screen.findByRole('heading', { name: 'Blog' })).toBeTruthy();
     expect(screen.queryByRole('button', { name: 'Blog' })).toBeNull();
     expect(screen.getByRole('button', { name: 'Inicio' })).toBeTruthy();
     expect(screen.getByRole('button', { name: 'Experiencia' })).toBeTruthy();
@@ -58,9 +64,46 @@ describe('App', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Inicio' }));
 
     expect(
-      screen.getByRole('heading', { name: profileConfig.intro })
+      screen.getByRole('heading', { name: translations.es.home.intro })
     ).toBeTruthy();
     expect(screen.queryByRole('button', { name: 'Inicio' })).toBeNull();
+  });
+
+  it('switches public copy between supported languages', () => {
+    render(<App />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'FR' }));
+
+    expect(
+      screen.getByRole('heading', { name: translations.fr.home.intro })
+    ).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Expérience' })).toBeTruthy();
+
+    fireEvent.click(screen.getByRole('button', { name: 'EN' }));
+
+    expect(
+      screen.getByRole('heading', { name: translations.en.home.intro })
+    ).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Experience' })).toBeTruthy();
+  });
+
+  it('renders the protected admin route directly', async () => {
+    window.history.replaceState({}, '', '/admin');
+
+    render(<App />);
+
+    expect(await screen.findByRole('heading', { name: 'Admin' })).toBeTruthy();
+  });
+
+  it('renders a blog article route directly', async () => {
+    window.history.replaceState({}, '', '/blog/mi-articulo');
+
+    render(<App />);
+
+    expect(await screen.findByText('Cargando artículo...')).toBeTruthy();
+    expect(screen.queryByRole('button', { name: 'Blog' })).toBeNull();
+    expect(screen.getByRole('button', { name: 'Inicio' })).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Experiencia' })).toBeTruthy();
   });
 });
 
@@ -71,5 +114,16 @@ describe('security helpers', () => {
 
   it('rejects unsafe icon class tokens', () => {
     expect(getSafeIconClass('fa-github onclick=alert(1)')).toBeNull();
+  });
+
+  it('only allows https image URLs', () => {
+    expect(getSafeImageUrl('javascript:alert(1)')).toBeNull();
+    expect(getSafeImageUrl('http://example.com/image.png')).toBeNull();
+    expect(getSafeImageUrl('https://example.com/image.png')).toBe('https://example.com/image.png');
+  });
+
+  it('removes unsafe markdown URLs', () => {
+    expect(getSafeMarkdownUrl('javascript:alert(1)', 'href')).toBe('');
+    expect(getSafeMarkdownUrl('javascript:alert(1)', 'src')).toBe('');
   });
 });

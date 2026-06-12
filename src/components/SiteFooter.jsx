@@ -1,10 +1,10 @@
 import { FaBeer, FaHeart } from 'react-icons/fa';
 
-export function SiteFooter() {
+export function SiteFooter({ t }) {
   return (
     <footer className="footer">
       <span>
-        Made with <FaHeart aria-label="love" /> and{' '}
+        {t.footerMade} <FaHeart aria-label="love" /> {t.footerAnd}{' '}
         <FaBeer aria-label="beer" />
       </span>
     </footer>
